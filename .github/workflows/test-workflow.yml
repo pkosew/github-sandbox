@@ -23,3 +23,15 @@ jobs:
               repo: context.repo.repo,
               body: "So it's time to train the model!"
             })
+      - uses: actions/github-script@0.8.0
+        if: ${{ !contains(github.event.issue.labels.*.name, 'model-training') }}
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "Not training so what?"
+            })
+
