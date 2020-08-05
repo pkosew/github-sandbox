@@ -1,16 +1,8 @@
 ---
 name: Model training
 about: Describe this issue template's purpose here.
-title: ''
-labels: ''
+title: 'Model training'
+labels: 'model-training'
 assignees: ''
 
----
-
----
-name: Tracking issue
-about: Use this template for tracking new features.
-title: "[DATE]: [FEATURE NAME]"
-labels: tracking issue, needs triage
-assignees: octocat
 ---
