@@ -14,6 +14,7 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: Get workflow run
+        id: get-workflow-run
         uses: actions/github-script@0.8.0
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -23,7 +24,9 @@ jobs:
               repo: context.repo.repo,
               run_id: ${{github.run_id}}
             })
-            console.log(${{workflow_run}})
+            return workflow_run
+      - name: Get result
+        run: echo "${{steps.get-workflow-run.outputs.result}}"
 
       - name: Initial issue comment
         uses: actions/github-script@0.8.0
