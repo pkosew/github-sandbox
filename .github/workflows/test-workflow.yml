@@ -5,33 +5,34 @@ on:
     types: [opened, edited]
 
 jobs:
-  comment:
+  training:
+    if: ${{ contains(github.event.issue.labels.*.name, 'model-training') }}
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - uses: actions/github-script@0.8.0
-        if: ${{ contains(github.event.issue.labels.*.name, 'model-training') }}
+      - name: Get workflow run
+        uses: actions/github-script@0.8.0
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
+            github.actions.getWorkflowRun({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "So it's time to train the model!"
-            })
-      - uses: actions/github-script@0.8.0
-        if: ${{ !contains(github.event.issue.labels.*.name, 'model-training') }}
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: "Not training so what?"
+              run_id: github.run_id
             })
 
+      - uses: actions/github-script@0.8.0
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: |
+                Model training workflow started.
+                https://github.com/pkosew/github-sandbox/actions/runs/${{github.run_id}}
+            })
