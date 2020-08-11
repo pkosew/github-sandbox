@@ -23,7 +23,7 @@ jobs:
               repo: context.repo.repo,
               run_id: ${{github.run_id}}
             })
-            console.log(workflow_run)
+            console.log(${{workflow_run}})
 
       - name: Initial issue comment
         uses: actions/github-script@0.8.0
