@@ -23,7 +23,7 @@ jobs:
               repo: context.repo.repo,
               run_id: ${{github.run_id}}
             })
-            return workflow_run
+            console.log(workflow_run)
 
       - name: Initial issue comment
         uses: actions/github-script@0.8.0
@@ -34,9 +34,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: >
-                Model training workflow started.
-                https://github.com/pkosew/github-sandbox/actions/runs/${{github.run_id}}
+              body: "Model training workflow started."
             })
 
 
