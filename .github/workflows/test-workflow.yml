@@ -26,7 +26,13 @@ jobs:
             })
             return workflow_run
       - name: Get result
-        run: echo "${{toJson(steps.get-workflow-run.outputs.result)}}"
+        env:
+          workflow_run_obj: steps.get-workflow-run.outputs.result
+          workflow_run: ${{ toJson(steps.get-workflow-run.outputs.result) }}
+        run: |
+          echo "something"
+          echo "$workflow_run"
+          echo "${{workflow_run_obj.html_url}}"
 
       - name: Initial issue comment
         uses: actions/github-script@0.8.0
