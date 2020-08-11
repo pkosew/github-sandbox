@@ -32,6 +32,7 @@ jobs:
         run: |
           echo "something"
           echo "$workflow_run"
+          echo "${{steps.get-workflow-run.outputs.result.html_url}}"
 
       - name: Initial issue comment
         uses: actions/github-script@0.8.0
