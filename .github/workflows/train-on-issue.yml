@@ -1,0 +1,75 @@
+name: HamaK training
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  training:
+    if: ${{ contains(github.event.issue.labels.*.name, 'model-training') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Get workflow run
+        id: get-workflow-run
+        uses: actions/github-script@0.8.0
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const workflow_run = github.actions.getWorkflowRun({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: ${{github.run_id}}
+            })
+            return workflow_run
+      - name: Get result
+        env:
+          workflow_run_obj: steps.get-workflow-run.outputs.result
+          workflow_run: ${{ toJson(steps.get-workflow-run.outputs.result) }}
+        run: |
+          echo "something"
+          echo "$workflow_run"
+          echo "${{steps.get-workflow-run.outputs.result.html_url}}"
+
+      - name: Initial issue comment
+        uses: actions/github-script@0.8.0
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "Model training workflow started."
+            })
+
+      - name: Run model training
+        run: echo "Dummy step - testing"
+
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Training pipeline report
+        uses: actions/github-script@0.8.0
+        with:
+            github-token: ${{secrets.GITHUB_TOKEN}}
+            script: |
+                const fs = require('fs')
+                const issueBody = fs.readFileSync("src/reporting/model_performance.md", "utf8")
+                github.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: issueBody
+                })
+                github.issues.addLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: ['ready']
+                })
+
