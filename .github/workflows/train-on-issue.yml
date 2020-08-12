@@ -35,6 +35,7 @@ jobs:
           echo "${{steps.get-workflow-run.outputs.result.html_url}}"
 
       - name: Initial issue comment
+        id: get-pwd
         uses: actions/github-script@0.8.0
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -45,6 +46,10 @@ jobs:
               repo: context.repo.repo,
               body: "Model training workflow started."
             })
+            const ps = require('process')
+            return process.cwd()
+      - name: Get result
+        run: echo "${{steps.get-pwd.outputs.result}}"
 
       - name: Run model training
         run: echo "Dummy step - testing"
