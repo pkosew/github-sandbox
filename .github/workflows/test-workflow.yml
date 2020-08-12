@@ -6,7 +6,8 @@ on:
 
 jobs:
   training:
-    if: ${{ contains(github.event.issue.labels.*.name, 'model-training') }}
+    # if: ${{ contains(github.event.issue.labels.*.name, 'model-training') }}
+    if: ${{ 1 == 0 }}
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub context
