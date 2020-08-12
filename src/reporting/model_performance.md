@@ -48,5 +48,5 @@
 
 
 
-![svg](output_7_0.svg)
+![svg](https://github.com/pkosew/github-sandbox/raw/master/src/reporting/output_7_0.svg)
 
