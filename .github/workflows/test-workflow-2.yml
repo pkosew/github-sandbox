@@ -31,8 +31,8 @@ jobs:
                 //listing all files using forEach
                 files.forEach(function (file) {
                     // Do whatever you want to do with the file
-                    console.log(file); 
-                })
+                    console.log(file);
+                });
             console.log("test1")
         
       - name: Initial issue comment
