@@ -1,0 +1,34 @@
+name: Learning GitHub Script
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  whereami:
+    # if: ${{ contains(github.event.issue.labels.*.name, 'whereami') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+        
+      - name: Initial issue comment
+        uses: actions/github-script@0.8.0
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            console.log("test1")
+        
+      - name: Initial issue comment
+        uses: actions/github-script@0.8.0
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "whereami workflow started."
+            })
