@@ -33,6 +33,7 @@ jobs:
                     // Do whatever you want to do with the file
                     console.log(file);
                 });
+            });
             console.log("test1")
         
       - name: Initial issue comment
