@@ -19,6 +19,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            const path = require('path');
             const fs = require('fs');
             const directoryPath = path.join(__dirname, 'Documents');
             console.log(__dirname)
