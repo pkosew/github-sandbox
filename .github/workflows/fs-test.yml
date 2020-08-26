@@ -25,7 +25,7 @@ jobs:
                   issueBody = fs.readFileSync("./src/reporting/dummy.md", "utf8")
                   const returnLabel = "completed"
               } catch (err) {
-                  const returnLabel1 = "completed"
+                  const returnLabel = "failed"
               }
               github.issues.createComment({
               issue_number: context.issue.number,
