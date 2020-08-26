@@ -22,11 +22,11 @@ jobs:
           script: |
               const fs = require('fs')
               try {
-                  issueBody = fs.readFileSync("./src/reporting/dummy1.md", "utf8")
+                  issueBody = fs.readFileSync("./src/reporting/dummy.md", "utf8")
                   returnLabel = "completed"
               } catch (err) {
                   issueBody = "**Report file not found.** Check pipeline for errors."
-                  returnLabel = "failed"
+                  returnLabel = "failed1"
               }
               github.issues.createComment({
                 issue_number: context.issue.number,
