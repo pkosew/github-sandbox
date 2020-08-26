@@ -15,6 +15,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: open file properly
+        id: read-report
         uses: actions/github-script@0.8.0
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -33,9 +34,16 @@ jobs:
                 repo: context.repo.repo,
                 body: issueBody
               })
+              return returnLabel
+              
+      - name: open file properly
+        uses: actions/github-script@0.8.0
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
               github.issues.addLabels({
                   issue_number: context.issue.number,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  labels: [returnLabel]
+                  labels: [ ${{steps.read-report.outputs.result}} ]
               })
