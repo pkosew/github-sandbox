@@ -22,10 +22,10 @@ jobs:
               const fs = require('fs')
               try {
                   const issueBody = fs.readFileSync("./src/reporting/dummy.md", "utf8")
-                  const return-label = "completed"
+                  const returnLabel = "completed"
               } catch (err) {
                   const issueBody = "<span style="font-weight:bold;color:red">Report file not found. Check pipeline for errors.</span>"
-                  const return-label = "failed"
+                  const returnLabel = "failed"
               }
               github.issues.createComment({
               issue_number: context.issue.number,
@@ -37,5 +37,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: [return-label]
+              labels: [returnLabel]
               })
