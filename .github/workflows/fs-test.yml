@@ -24,7 +24,7 @@ jobs:
                   const issueBody = fs.readFileSync("./src/reporting/dummy.md", "utf8")
                   return-label: "completed"
               } catch (err) {
-                  const issueBody = "<span style="font-weight:bold;color:red">Report file not found. Check pipeline for errors.</span>"
+                  const issueBody = "<span>Report file not found. Check pipeline for errors.</span>"
                   return-label: "failed"
               }
               github.issues.createComment({
