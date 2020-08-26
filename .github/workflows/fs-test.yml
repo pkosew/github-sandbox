@@ -20,7 +20,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
               const fs = require('fs')
-              var issueBody = "<span style="font-weight:bold;color:red">Report file not found. Check pipeline for errors.</span>"
+              var issueBody = "<span style='font-weight:bold;color:red'>Report file not found. Check pipeline for errors.</span>"
               try {
                   issueBody = fs.readFileSync("./src/reporting/dummy.md", "utf8")
                   const returnLabel = "completed"
