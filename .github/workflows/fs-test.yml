@@ -22,12 +22,8 @@ jobs:
 
       - name: echoing
         run: echo "$var_job"
-        
-      - name: echoing
-        run: echo "${{jobs.training.env.var_job}}"
-        
-      - name: echoing
-        run: echo ${{jobs.training.env.var_job}}
+        env:
+          var_job: this is a step var
 
       - name: open file properly
         id: read-report
