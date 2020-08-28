@@ -23,8 +23,6 @@ jobs:
 
       - name: echoing
         run: echo ${{env.var_job}}
-        env:
-          var_job: this is a step var
 
       - name: open file properly
         id: read-report
