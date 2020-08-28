@@ -22,6 +22,12 @@ jobs:
 
       - name: echoing
         run: echo "$var_job"
+        
+      - name: echoing
+        run: echo "${{jobs.training.env.var_job}}"
+        
+      - name: echoing
+        run: echo ${{jobs.training.env.var_job}}
 
       - name: open file properly
         id: read-report
@@ -47,6 +53,6 @@ jobs:
                   issue_number: context.issue.number,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  labels: [returnLabel]
+                  labels: [${{jobs.training.env.var_job}}]
               })
               
