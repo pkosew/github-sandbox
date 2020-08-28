@@ -49,6 +49,6 @@ jobs:
                   issue_number: context.issue.number,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  labels: [${{jobs.training.env.var_job}}]
+                  labels: ["krowa"]
               })
               
