@@ -2,10 +2,13 @@ name: file handling test in GH Script
 
 on:
   pull_request:
-
+env: 
+  var_global: this is a global var
 jobs:
   testing:
     runs-on: ubuntu-latest
+    env: 
+      var_job: this is a job var
     steps:
       - name: Dump GitHub context
         env:
@@ -13,6 +16,12 @@ jobs:
         run: echo "$GITHUB_CONTEXT"
 
       - uses: actions/checkout@v2
+      
+      - name: echoing
+        run: echo "$var_global"
+
+      - name: echoing
+        run: echo "$var_job"
 
       - name: open file properly
         id: read-report
