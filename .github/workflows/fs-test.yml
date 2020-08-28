@@ -24,24 +24,19 @@ jobs:
       - name: echoing
         run: echo ${{env.var_job}}
         
+
       - name: script debug
         uses: actions/github-script@0.8.0
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            console.log(context.job)
+            console.log(context.payload )      
       - name: script debug
         uses: actions/github-script@0.8.0
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            console.log(context.workflow )      
-      - name: script debug
-        uses: actions/github-script@0.8.0
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            console.log(context.action )          
+            console.log(process.env )          
             
       - name: open file properly
         id: read-report
