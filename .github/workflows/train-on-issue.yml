@@ -8,6 +8,10 @@ jobs:
   training:
     if: ${{ contains(github.event.issue.labels.*.name, 'model-training') }}
     runs-on: ubuntu-latest
+    env: 
+      LABEL_IN_PROGRESS: in progress
+      LABEL_COMPLETED: completed
+      LABEL_FAILED: failed
     steps:
       - name: Dump GitHub context
         env:
@@ -35,8 +39,7 @@ jobs:
           echo "$workflow_run"
           echo "${{steps.get-workflow-run.outputs.result.html_url}}"
 
-      - name: Initial issue comment
-        id: get-pwd
+      - name: Mark issue as a pipeline trigger
         uses: actions/github-script@0.8.0
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -45,10 +48,15 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "Model training workflow started."
+              body: "Training workflow started."
             })
-            const ps = require('process')
-            return process.cwd()
+            github.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: [$LABEL_IN_PROGRESS]
+            })
+      
       - name: Get result
         run: echo "${{steps.get-pwd.outputs.result}}"
 
@@ -59,29 +67,35 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - name: Training pipeline report
+      - name: Print pipeline report or failure
         uses: actions/github-script@0.8.0
         with:
-            github-token: ${{secrets.GITHUB_TOKEN}}
-            script: |
-                const fs = require('fs')
-                try {
-                    const issueBody = fs.readFileSync("src/reporting/model_performance.md", "utf8")
-                    return-label: "completed"
-                } catch (err) {
-                    const issueBody = "<span style="font-weight:bold;color:red">Report file not found. Check pipeline for errors.</span>"
-                    return-label: "failed"
-                }
-                github.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: issueBody
-                })
-                github.issues.addLabels({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                labels: [return-label]
-                })
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const fs = require('fs')
+            try {
+              issueBody = fs.readFileSync("./src/reporting/dummy.md", "utf8")
+              returnLabel = $LABEL_COMPLETED
+            } catch (err) {
+              issueBody = "**Report file not found.**"
+              returnLabel = $LABEL_FAILED
+            }
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: issueBody
+            })
+            github.issues.removeLabel({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: $LABEL_IN_PROGRESS
+            })
+            github.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: [returnLabel]
+            })
 
