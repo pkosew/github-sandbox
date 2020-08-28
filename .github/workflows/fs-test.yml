@@ -4,6 +4,7 @@ on:
   pull_request:
 env: 
   var_global: this is a global var
+  var_job: this is a global var
 jobs:
   testing:
     runs-on: ubuntu-latest
@@ -21,7 +22,7 @@ jobs:
         run: echo "$var_global"
 
       - name: echoing
-        run: echo "$var_job"
+        run: echo ${{env.var_job}}
         env:
           var_job: this is a step var
 
