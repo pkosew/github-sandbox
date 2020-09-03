@@ -4,7 +4,7 @@ on:
   pull_request:
 env: 
   var_global: this is a global var
-  var_job: this is a global var
+  var_job: this is a second global var
 jobs:
   testing:
     runs-on: ubuntu-latest
