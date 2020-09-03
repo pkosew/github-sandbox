@@ -25,7 +25,7 @@ jobs:
         run: echo ${{env.var_job}}
 
       - name: get issue body
-        uses: actions/github-script@0.8.0
+        uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
@@ -34,9 +34,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo
               })
-            console.log(issueBody)
-            j = JSON.parse(issueBody)
-            console.log(j.status)
+            console.log(issueBody.data.body)
 
       - name: script debug
         uses: actions/github-script@0.8.0
