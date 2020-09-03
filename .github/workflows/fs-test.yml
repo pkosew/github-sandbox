@@ -62,6 +62,6 @@ jobs:
                   issue_number: context.issue.number,
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  labels: [process.env.var_job]
+                  labels: [process.env.VAR_JOB]
               })
               
