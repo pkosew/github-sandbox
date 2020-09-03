@@ -34,7 +34,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo
               })
-            console.log(issueBody.data.body)
+            console.log(issueBody)
 
       - name: script debug
         uses: actions/github-script@0.8.0
