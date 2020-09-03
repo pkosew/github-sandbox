@@ -29,6 +29,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            var issueBody = ""
             github.issues.get({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
