@@ -23,7 +23,18 @@ jobs:
 
       - name: echoing
         run: echo ${{env.var_job}}
-        
+
+      - name: get issue body
+        uses: actions/github-script@0.8.0
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            issueBody = github.issues.get({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo
+              })
+            console.log(issueBody)
 
       - name: script debug
         uses: actions/github-script@0.8.0
