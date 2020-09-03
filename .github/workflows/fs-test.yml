@@ -29,14 +29,12 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            var issueBody = ""
-            p = github.issues.get({
+            var issueBody = await github.issues.get({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo
               })
-            console.log(p)
-            p.then(value => {console.log(value);})
+            console.log(issueBody)
 
       - name: script debug
         uses: actions/github-script@0.8.0
