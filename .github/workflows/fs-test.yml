@@ -33,7 +33,9 @@ jobs:
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo
-              }).then((value) => {console.log(value);})
+              }).then((value) => {issueBody = value;})
+          console.log(issueBody)
+          console.log(issueBody.body)
 
       - name: script debug
         uses: actions/github-script@0.8.0
