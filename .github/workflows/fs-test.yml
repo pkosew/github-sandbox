@@ -30,11 +30,12 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             var issueBody = ""
-            github.issues.get({
+            p = github.issues.get({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
                 repo: context.repo.repo
-              }).then((value) => {issueBody = value;})
+              })
+            console.log(p)
 
       - name: script debug
         uses: actions/github-script@0.8.0
