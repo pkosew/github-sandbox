@@ -9,7 +9,7 @@ jobs:
   testing:
     runs-on: ubuntu-latest
     env: 
-      var_job: this is a job var
+      var_job: this is a third job var
     steps:
       - name: Dump GitHub context
         env:
