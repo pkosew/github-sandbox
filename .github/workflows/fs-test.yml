@@ -35,6 +35,8 @@ jobs:
                 repo: context.repo.repo
               })
             console.log(issueBody)
+            j = JSON.parse(issueBody)
+            console.log(j.status)
 
       - name: script debug
         uses: actions/github-script@0.8.0
