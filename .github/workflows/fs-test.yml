@@ -37,7 +37,6 @@ jobs:
               var issueBody = issue.data.body
               console.log(issueBody)
             })
-            console.log(issueBody)
 
       - name: get issue body pull
         uses: actions/github-script@v1
