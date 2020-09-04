@@ -1,4 +1,4 @@
-name: HamaK training
+name: testing issue trigger
 
 on:
   issues:
@@ -7,7 +7,7 @@ env:
   LABEL_MODEL_TRAINING: model-training
 jobs:
   training:
-    if: ${{ contains(github.event.issue.labels.*.name, LABEL_MODEL_TRAINING) }}
+    if: contains(github.event.issue.labels.*.name, $LABEL_MODEL_TRAINING)
     runs-on: ubuntu-latest
     env: 
       LABEL_IN_PROGRESS: in progress
