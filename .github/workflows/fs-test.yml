@@ -34,7 +34,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo
             }).then( (issue) => {
-              var issueBody = pr.data.body
+              var issueBody = issue.data.body
               console.log(issueBody)
             })
             console.log(issueBody)
