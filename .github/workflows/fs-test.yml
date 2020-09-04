@@ -29,11 +29,14 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            var issueBody = await github.issues.get({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo
-              })
+            github.issues.get({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            }).then( (issue) => {
+              var issueBody = pr.data.body
+              console.log(issueBody)
+            })
             console.log(issueBody)
 
       - name: get issue body pull
