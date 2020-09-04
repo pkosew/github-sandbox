@@ -36,6 +36,20 @@ jobs:
               })
             console.log(issueBody)
 
+      - name: get issue body pull
+        uses: actions/github-script@v1
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: context.payload.issue.number
+              }).then( (pr) => {
+                console.log(pr);
+              })
+
+
       - name: script debug
         uses: actions/github-script@0.8.0
         with:
