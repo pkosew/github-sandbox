@@ -46,7 +46,9 @@ jobs:
                 repo: context.repo.repo,
                 pull_number: context.issue.number
               }).then( (pr) => {
+                var branch_name = pr.data.head.ref
                 console.log(pr);
+                console.log(branch_name)
               })
 
 
