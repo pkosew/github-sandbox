@@ -52,9 +52,25 @@ jobs:
               var issueBody = issue.data.body
               var bodyKey = JSON.parse(issueBody)
               console.log(issueBody)
-              console.log(bodyKey.A)
-              console.log(bodyKey.B)
+              console.log(bodyKey.yes)
+              console.log(bodyKey.no)
+              return issueBody
             })
+      
+      - name: pre print
+        run: |
+          echo "$LABEL_COMPLETED"
+          echo "$LABEL_FAILED"
+      
+      - name: Update env
+        run: |
+          echo "::set-env name=LABEL_COMPLETED::new success"
+          echo "::set-env name=LABEL_FAILED::new success"
+      
+      - name: post print
+        run: |
+          echo "$LABEL_COMPLETED"
+          echo "$LABEL_FAILED"
 
       - name: Mark issue as a pipeline trigger
         uses: actions/github-script@v3
