@@ -65,9 +65,11 @@ jobs:
       
       - name: Update env
         env:
+          new_json: ${{ toJson(steps.get-issue-body.outputs.result) }}
           new_success_label: ${{ toJson(steps.get-issue-body.outputs.result).yes }}
           new_failure_label: ${{ toJson(steps.get-issue-body.outputs.result).no }}
         run: |
+          echo "$new_json"
           echo "::set-env name=LABEL_COMPLETED::new success"
           echo "::set-env name=LABEL_FAILED::$new_failure_label"
       
