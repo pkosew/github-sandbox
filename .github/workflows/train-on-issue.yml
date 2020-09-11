@@ -65,6 +65,7 @@ jobs:
       
       - name: Update env
         env:
+          new_json_txt: ${{ steps.get-issue-body.outputs.result }}
           new_json: ${{ toJson(steps.get-issue-body.outputs.result) }}
           new_success_label: ${{ toJson(steps.get-issue-body.outputs.result).yes }}
           new_failure_label: ${{ toJson(steps.get-issue-body.outputs.result).no }}
