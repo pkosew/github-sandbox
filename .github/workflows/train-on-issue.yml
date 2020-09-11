@@ -40,6 +40,7 @@ jobs:
           echo "${{steps.get-workflow-run.outputs.result.html_url}}"
 
       - name: Get issue body
+        id: get-issue-body
         uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -63,9 +64,12 @@ jobs:
           echo "$LABEL_FAILED"
       
       - name: Update env
+        env:
+          new_success_label: ${{ toJson(steps.get-issue-body.outputs.result).yes }}
+          new_failure_label: ${{ toJson(steps.get-issue-body.outputs.result).no }}
         run: |
           echo "::set-env name=LABEL_COMPLETED::new success"
-          echo "::set-env name=LABEL_FAILED::new success"
+          echo "::set-env name=LABEL_FAILED::$new_failure_label"
       
       - name: post print
         run: |
