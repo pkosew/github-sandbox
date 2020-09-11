@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Get workflow run
         id: get-workflow-run
-        uses: actions/github-script@0.8.0
+        uses: actions/github-script@3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
@@ -41,7 +41,7 @@ jobs:
           echo "${{steps.get-workflow-run.outputs.result.html_url}}"
 
       - name: Mark issue as a pipeline trigger
-        uses: actions/github-script@0.8.0
+        uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
@@ -57,19 +57,13 @@ jobs:
               repo: context.repo.repo,
               labels: [process.env.label_in_progress]
             })
-      
-      - name: Get result
-        run: echo "${{steps.get-pwd.outputs.result}}"
-
-      - name: Run model training
-        run: echo "Dummy step - testing"
 
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
       - name: Print pipeline report or failure
-        uses: actions/github-script@0.8.0
+        uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
