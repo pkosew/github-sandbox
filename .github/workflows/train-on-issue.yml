@@ -50,9 +50,10 @@ jobs:
               repo: context.repo.repo
             }).then( (issue) => {
               var issueBody = issue.data.body
-              var bodyKey = issueBody.A
+              var bodyKey = JSON.parse(issueBody)
               console.log(issueBody)
-              console.log(bodyKey)
+              console.log(bodyKey.A)
+              console.log(bodyKey.B)
             })
 
       - name: Mark issue as a pipeline trigger
