@@ -55,6 +55,8 @@ jobs:
               console.log(issueBody)
               console.log(bodyKey.yes)
               console.log(bodyKey.no)
+              console.log(::set-env name=LABEL_COMPLETED::from Script success)
+              result-encoding: string
               return issueBody
             })
       
