@@ -55,7 +55,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: ["test"]
+              labels: ["model-training"]
             })
 
       - name: Dump GitHub context
@@ -85,7 +85,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              name: process.env.label_in_progress
+              name: "model-training"
             })
             github.issues.addLabels({
               issue_number: context.issue.number,
