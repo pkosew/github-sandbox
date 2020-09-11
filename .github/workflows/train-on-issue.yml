@@ -55,7 +55,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: [$LABEL_IN_PROGRESS]
+              labels: [process.env.label_in_progress]
             })
       
       - name: Get result
@@ -76,10 +76,10 @@ jobs:
             const fs = require('fs')
             try {
               issueBody = fs.readFileSync("./src/reporting/dummy.md", "utf8")
-              returnLabel = $LABEL_COMPLETED
+              returnLabel = process.env.label_completed
             } catch (err) {
               issueBody = "**Report file not found.**"
-              returnLabel = $LABEL_FAILED
+              returnLabel = process.env.label_failed
             }
             github.issues.createComment({
               issue_number: context.issue.number,
@@ -91,7 +91,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              name: $LABEL_IN_PROGRESS
+              name: process.env.label_in_progress
             })
             github.issues.addLabels({
               issue_number: context.issue.number,
