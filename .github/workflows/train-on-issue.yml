@@ -5,14 +5,13 @@ on:
     types: [opened, edited]
 env:
   LABEL_MODEL_TRAINING: model-training
+  LABEL_IN_PROGRESS: in progress
+  LABEL_COMPLETED: completed
+  LABEL_FAILED: failed
 jobs:
   training:
     if: contains(github.event.issue.labels.*.name, 'model-training')
     runs-on: ubuntu-latest
-    env: 
-      LABEL_IN_PROGRESS: in progress
-      LABEL_COMPLETED: completed
-      LABEL_FAILED: failed
     steps:
       - name: Dump GitHub context
         env:
@@ -91,6 +90,6 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              labels: [returnLabel]
+              labels: ["final test"]
             })
 
